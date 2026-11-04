@@ -27,11 +27,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Build the site in the jekyll-docker container
-        run: |
-          docker run \
-          -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-          jvconseil/jekyll-docker:4.3.3 /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Build the site
+        run: bundle exec jekyll build --future
 
       # - name: Build the site in the jekyll/builder container
       #   run: |
