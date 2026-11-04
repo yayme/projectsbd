@@ -1,0 +1,75 @@
+---
+layout: page
+---
+
+<article class="project-page py-4">
+  {% if page.thumbnail %}
+    <img src="{{ page.thumbnail | relative_url }}" alt="{{ page.title }} thumbnail" class="img-fluid rounded mb-4">
+  {% endif %}
+
+  <h1 class="mb-3">{{ page.title }}</h1>
+  <p class="text-muted mb-4">
+    {{ page.author }}{% if page.institution %} · {{ page.institution }}{% endif %}
+  </p>
+
+  <p class="mb-4">
+    {% for tech in page.tech_stack %}
+      <span class="badge badge-info mr-1 mb-1">{{ tech }}</span>
+    {% endfor %}
+    {% for tag in page.tags %}
+      <span class="badge badge-light border mr-1 mb-1">{{ tag }}</span>
+    {% endfor %}
+  </p>
+
+  {% if page.github_url or page.demo_url %}
+    <div class="mb-4">
+      {% if page.github_url %}
+        <a class="btn btn-outline-dark mr-2 mb-2" href="{{ page.github_url }}" target="_blank" rel="noopener">View Source</a>
+      {% endif %}
+      {% if page.demo_url %}
+        <a class="btn btn-primary mb-2" href="{{ page.demo_url }}" target="_blank" rel="noopener">Live Demo</a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if page.architecture %}
+    <h2 class="h4 mt-4">Architecture</h2>
+    <p>{{ page.architecture }}</p>
+  {% endif %}
+
+  {% if page.media %}
+    <h2 class="h4 mt-4">Media</h2>
+    <ul>
+      {% for item in page.media %}
+        <li><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.label }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2 class="h4 mt-4">Project Breakdown</h2>
+  <div class="project-content">
+    {{ content }}
+  </div>
+
+  {% if site.giscus and site.giscus.enabled %}
+    <section class="mt-5">
+      <h2 class="h4">Peer Feedback</h2>
+      <script src="https://giscus.app/client.js"
+              data-repo="{{ site.giscus.repo }}"
+              data-repo-id="{{ site.giscus.repo_id }}"
+              data-category="{{ site.giscus.category }}"
+              data-category-id="{{ site.giscus.category_id }}"
+              data-mapping="{{ site.giscus.mapping }}"
+              data-strict="{{ site.giscus.strict }}"
+              data-reactions-enabled="{{ site.giscus.reactions_enabled }}"
+              data-emit-metadata="{{ site.giscus.emit_metadata }}"
+              data-input-position="{{ site.giscus.input_position }}"
+              data-theme="{{ site.giscus.theme }}"
+              data-lang="{{ site.giscus.lang }}"
+              data-loading="{{ site.giscus.loading }}"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </section>
+  {% endif %}
+</article>
